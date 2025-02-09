@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Expense Tracker</h1>
+<a href="/add" class="btn btn-primary mb-3">Add Expense</a>
+
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount (₹)</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.date }}</td>
+            <td>{{ expense.category }}</td>
+            <td>{{ expense.amount }}</td>
+            <td>{{ expense.description }}</td>
+            <td>
+                <a href="/edit/{{ expense.id }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="/delete/{{ expense.id }}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

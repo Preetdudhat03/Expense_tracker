@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Edit Expense</h2>
+
+<form action="/edit/{{ expense.id }}" method="POST">
+    <div class="mb-3">
+        <label for="date" class="form-label">Date:</label>
+        <input type="date" id="date" name="date" class="form-control" value="{{ expense.date }}" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="category" class="form-label">Category:</label>
+        <select id="category" name="category" class="form-control" required>
+            <option value="Food" {% if expense.category == "Food" %}selected{% endif %}>Food</option>
+            <option value="Transport" {% if expense.category == "Transport" %}selected{% endif %}>Transport</option>
+            <option value="Shopping" {% if expense.category == "Shopping" %}selected{% endif %}>Shopping</option>
+            <option value="Entertainment" {% if expense.category == "Entertainment" %}selected{% endif %}>Entertainment</option>
+            <option value="Bills" {% if expense.category == "Bills" %}selected{% endif %}>Bills</option>
+            <option value="Other" {% if expense.category == "Other" %}selected{% endif %}>Other</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="amount" class="form-label">Amount (₹):</label>
+        <input type="number" id="amount" name="amount" class="form-control" value="{{ expense.amount }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea id="description" name="description" class="form-control">{{ expense.description }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Expense</button>
+</form>
+{% endblock %}

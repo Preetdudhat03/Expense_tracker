@@ -1,0 +1,35 @@
+/* General styling */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+/* Container styling */
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Table styling */
+.table {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+.btn {
+    border-radius: 5px;
+}
+
+/* Form styling */
+.form-control {
+    border-radius: 5px;
+}
+
+/* Navbar */
+.navbar {
+    border-radius: 0 0 10px 10px;
+}
