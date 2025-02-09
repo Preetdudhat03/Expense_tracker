@@ -1,11 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="mb-4">Expense Tracker</h1>
-<a href="/add" class="btn btn-primary mb-3">Add Expense</a>
+<h2 class="mb-4">Expense Tracker</h2>
 
+<!-- Filters -->
+<form method="GET" action="/" class="mb-4">
+    <div class="row">
+        <div class="col-md-2">
+            <label for="category" class="form-label">Category:</label>
+            <select id="category" name="category" class="form-control">
+                <option value="">All</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Bills">Bills</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="start_date" class="form-label">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <label for="end_date" class="form-label">End Date:</label>
+            <input type="date" id="end_date" name="end_date" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <label for="min_amount" class="form-label">Min Amount (₹):</label>
+            <input type="number" id="min_amount" name="min_amount" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <label for="max_amount" class="form-label">Max Amount (₹):</label>
+            <input type="number" id="max_amount" name="max_amount" class="form-control">
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
+<!-- Total Amount Spent -->
+<h4 class="mt-4">Total Spent: ₹{{ total_spent }}</h4>
+
+<!-- Expenses List -->
+<h4 class="mt-4">All Expenses:</h4>
 <table class="table table-striped">
-    <thead class="table-dark">
+    <thead>
         <tr>
             <th>Date</th>
             <th>Category</th>
@@ -17,16 +58,20 @@
     <tbody>
         {% for expense in expenses %}
         <tr>
-            <td>{{ expense.date }}</td>
+            <td>{{ expense.date.strftime('%Y-%m-%d') }}</td>
             <td>{{ expense.category }}</td>
-            <td>{{ expense.amount }}</td>
+            <td>₹{{ expense.amount }}</td>
             <td>{{ expense.description }}</td>
             <td>
-                <a href="/edit/{{ expense.id }}" class="btn btn-warning btn-sm">Edit</a>
-                <a href="/delete/{{ expense.id }}" class="btn btn-danger btn-sm">Delete</a>
+                <a href="{{ url_for('edit_expense', id=expense.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{{ url_for('delete_expense', id=expense.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                </form>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<a href="{{ url_for('add_expense') }}" class="btn btn-success">Add Expense</a>
 {% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtered Expenses</title>
+</head>
+<body>
+    <h2>Filtered Expenses from {{ start_date }} to {{ end_date }}</h2>
+
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount (INR)</th>
+            <th>Description</th>
+        </tr>
+        {% for expense in filtered_expenses %}
+        <tr>
+            <td>{{ expense.date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ expense.category }}</td>
+            <td>{{ expense.amount }}</td>
+            <td>{{ expense.description }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Total Expenses: {{ date_range_total }} INR</h3>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
